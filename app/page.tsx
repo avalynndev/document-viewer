@@ -34,7 +34,7 @@ export default function FileUpload() {
   };
 
   return (
-    <div className="mx-auto max-w-7xl my-12">
+    <div className="mx-auto my-12 max-w-7xl">
       <div className="flex items-center justify-center">
         <section className="space-y-6 sm:py-20 lg:py-24">
           <div className="container flex max-w-screen-md flex-col items-center gap-5 text-center">
@@ -126,7 +126,7 @@ export default function FileUpload() {
             },
           }}
           pluginRenderers={DocViewerRenderers}
-          className="w-full h-full"
+          className="size-full"
         />
       )}
     </div>
