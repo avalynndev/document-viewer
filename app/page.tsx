@@ -1,81 +1,113 @@
 "use client";
 
 import { useState } from "react";
-import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Upload, File as FileIcon, X } from "lucide-react";
+import { Upload, XCircle } from "lucide-react";
 import DocViewer, { DocViewerRenderers } from "@cyntler/react-doc-viewer";
 import "@cyntler/react-doc-viewer/dist/index.css";
+import {
+  Annu,
+  AnnuTrigger,
+  AnnuContent,
+  AnnuHeader,
+  AnnuTitle,
+  AnnuDescription,
+  AnnuBody,
+} from "@/components/ui/annu";
+import Link from "next/link";
+import localFont from "next/font/local";
+
+const geistMono = localFont({
+  src: "./fonts/GeistMonoVF.woff",
+  variable: "--font-geist-mono",
+  weight: "100 900",
+});
 
 export default function FileUpload() {
   const [selectedDocs, setSelectedDocs] = useState<File[] | null>(null);
 
   const handleRemove = () => {
     setSelectedDocs(null);
+    // document.getElementById("file")?.click();
   };
 
   return (
-    <>
+    <div className="max-w-7xl mx-auto">
       <div className="flex justify-center items-center">
-        <div className="w-full max-w-md mx-auto">
-          <Label className="text-2xl font-extralight items-center flex flex-col justify-center">
-            File Viewer
-          </Label>
-          <div className="space-y-4 pt-4">
-            <div className="grid w-full items-center gap-1.5">
-              <div className="flex items-center gap-2">
-                <Input
-                  id="file"
-                  type="file"
-                  multiple
-                  onChange={(el) =>
-                    el.target.files?.length &&
-                    setSelectedDocs(Array.from(el.target.files))
-                  }
-                  className="hidden"
-                />
-                <Button
-                  onClick={() => document.getElementById("file")?.click()}
-                  className="w-full"
-                >
-                  <Upload className="mr-2 h-4 w-4" /> Choose File
-                </Button>
-              </div>
-            </div>
-            {selectedDocs && (
-              <Card className="bg-muted">
-                <CardContent className="flex items-center justify-between p-4">
-                  <div className="flex items-center space-x-4">
-                    <div className="bg-background rounded-full p-2">
-                      <FileIcon className="h-6 w-6" />
-                    </div>
-                    <div>
-                      <p className="font-medium">{selectedDocs[0].name}</p>
-                      <p className="text-sm text-muted-foreground">
-                        {selectedDocs[0].name.split(".")[1]
-                          ? selectedDocs[0].name.split(".")[1].toUpperCase()
-                          : "Unknown"}
-                        {" · "}
-                        {(selectedDocs[0].size / 1024 / 1024).toFixed(2)} MB
-                      </p>
-                    </div>
-                  </div>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="text-muted-foreground hover:text-foreground"
-                    onClick={handleRemove}
+        <section className="space-y-6 py-12 sm:py-20 lg:py-24">
+          <div className="container flex max-w-screen-md flex-col items-center gap-5 text-center">
+            <h1 className="text-balance font-satoshi text-[40px] font-black leading-[1.15] tracking-tight sm:text-5xl md:text-6xl md:leading-[1.15]">
+              Document{" "}
+              <span className="bg-gradient-to-r from-violet-600 via-blue-600 to-cyan-500 bg-clip-text text-transparent">
+                Viewer
+              </span>
+            </h1>
+
+            <p className="max-w-2xl text-balance text-muted-foreground sm:text-lg">
+              Simple. Robust. <b>Document Viewer</b>. <br /> Access a wide range
+              of
+              <Annu>
+                <AnnuTrigger asChild>
+                  <Link href="/"> file formats </Link>
+                </AnnuTrigger>
+                <AnnuContent>
+                  <AnnuHeader>
+                    <AnnuTitle>Supported File Formats</AnnuTitle>
+                    <AnnuDescription>
+                      List of File Formats which you can use view your files
+                    </AnnuDescription>
+                  </AnnuHeader>
+                  <AnnuBody
+                    className={`space-y-4 pb-4 text-center text-sm sm:pb-0 sm:text-left text-muted-foreground ${geistMono.className}`}
                   >
-                    <X className="h-4 w-4" />
-                  </Button>
-                </CardContent>
-              </Card>
-            )}
+                    BMP, CSV, ODT, DOC, DOCX, GIF, HTM, HTML, JPG, JPEG, PDF,
+                    PNG, PPT, PPTX, TIFF, TXT, XLS, XLSX
+                  </AnnuBody>
+                </AnnuContent>
+              </Annu>
+              to view seamlessly on this platform.
+            </p>
+
+            <div className="flex justify-center space-x-2">
+              <Input
+                id="file"
+                type="file"
+                multiple
+                onChange={(el) =>
+                  el.target.files?.length &&
+                  setSelectedDocs(Array.from(el.target.files))
+                }
+                className="hidden"
+              />
+              <Button
+                onClick={() => document.getElementById("file")?.click()}
+                rounded="2xl"
+                size="lg"
+                className="gap-2 px-5 text-[15px]"
+              >
+                <span>Upload File</span>
+                <Upload className="size-4" />
+              </Button>
+              <Button
+                disabled={!selectedDocs}
+                variant="outline"
+                rounded="2xl"
+                size="lg"
+                className="px-4 gap-2 text-[15px]"
+                onClick={() => {
+                  handleRemove();
+                }}
+              >
+                <p>
+                  <span className="hidden sm:inline-block">Remove</span> File
+                </p>
+                <XCircle className="size-4" />
+              </Button>
+            </div>
           </div>
-        </div>
-      </div>{" "}
+        </section>
+      </div>
       {selectedDocs && (
         <DocViewer
           documents={selectedDocs.map((file) => ({
@@ -85,6 +117,6 @@ export default function FileUpload() {
           pluginRenderers={DocViewerRenderers}
         />
       )}
-    </>
+    </div>
   );
 }
