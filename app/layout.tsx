@@ -1,7 +1,8 @@
 import { constructMetadata } from "@/lib/metadata";
 import "@/styles/globals.css";
 import { Grandstander } from "next/font/google";
-
+import { ThemeProvider } from "@/components/theme-provider";
+import { TailwindIndicator } from "@/components/tailwind-indicator";
 const grandstander = Grandstander({
   subsets: ["vietnamese"],
   weight: ["400"],
@@ -33,10 +34,17 @@ export default function RootLayout({
         <link rel="manifest" href="/site.webmanifest" />
       </head>
       <body
-        className={`${grandstander.className} min-h-screen bg-background  antialiased`}
+        className={`${grandstander.className} min-h-screen bg-background antialiased`}
       >
         <div className="flex min-h-screen flex-col">
-          <main className="flex-1">{children}</main>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+          >
+            <main className="flex-1">{children}</main>
+            <TailwindIndicator />
+          </ThemeProvider>
         </div>
       </body>
     </html>

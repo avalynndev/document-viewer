@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/annu";
 import Link from "next/link";
 import localFont from "next/font/local";
+import { ModeToggle } from "@/components/mode-toggle";
 
 const geistMono = localFont({
   src: "./fonts/GeistMonoVF.woff",
@@ -33,9 +34,9 @@ export default function FileUpload() {
   };
 
   return (
-    <div className="mx-auto max-w-7xl">
+    <div className="mx-auto max-w-7xl my-12">
       <div className="flex items-center justify-center">
-        <section className="space-y-6 py-12 sm:py-20 lg:py-24">
+        <section className="space-y-6 sm:py-20 lg:py-24">
           <div className="container flex max-w-screen-md flex-col items-center gap-5 text-center">
             <h1 className="text-balance text-[40px] font-black leading-[1.15] tracking-tight sm:text-5xl md:text-6xl md:leading-[1.15]">
               Document{" "}
@@ -49,7 +50,10 @@ export default function FileUpload() {
               of
               <Annu>
                 <AnnuTrigger asChild>
-                  <Link href="/"> file formats </Link>
+                  <Link href="" className="text-blue-500">
+                    {" "}
+                    file formats{" "}
+                  </Link>
                 </AnnuTrigger>
                 <AnnuContent>
                   <AnnuHeader>
@@ -104,6 +108,7 @@ export default function FileUpload() {
                 </p>
                 <XCircle className="size-4" />
               </Button>
+              <ModeToggle />
             </div>
           </div>
         </section>
@@ -114,7 +119,14 @@ export default function FileUpload() {
             uri: window.URL.createObjectURL(file),
             fileName: file.name,
           }))}
+          config={{
+            header: {
+              disableFileName: true,
+              retainURLParams: true,
+            },
+          }}
           pluginRenderers={DocViewerRenderers}
+          className="w-full h-full"
         />
       )}
     </div>
