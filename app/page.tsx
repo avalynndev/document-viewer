@@ -33,11 +33,11 @@ export default function FileUpload() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto">
-      <div className="flex justify-center items-center">
+    <div className="mx-auto max-w-7xl">
+      <div className="flex items-center justify-center">
         <section className="space-y-6 py-12 sm:py-20 lg:py-24">
           <div className="container flex max-w-screen-md flex-col items-center gap-5 text-center">
-            <h1 className="text-balance font-satoshi text-[40px] font-black leading-[1.15] tracking-tight sm:text-5xl md:text-6xl md:leading-[1.15]">
+            <h1 className="text-balance text-[40px] font-black leading-[1.15] tracking-tight sm:text-5xl md:text-6xl md:leading-[1.15]">
               Document{" "}
               <span className="bg-gradient-to-r from-violet-600 via-blue-600 to-cyan-500 bg-clip-text text-transparent">
                 Viewer
@@ -59,7 +59,7 @@ export default function FileUpload() {
                     </AnnuDescription>
                   </AnnuHeader>
                   <AnnuBody
-                    className={`space-y-4 pb-4 text-center text-sm sm:pb-0 sm:text-left text-muted-foreground ${geistMono.className}`}
+                    className={`space-y-4 pb-4 text-center text-sm text-muted-foreground sm:pb-0 sm:text-left ${geistMono.className}`}
                   >
                     BMP, CSV, ODT, DOC, DOCX, GIF, HTM, HTML, JPG, JPEG, PDF,
                     PNG, PPT, PPTX, TIFF, TXT, XLS, XLSX
@@ -94,7 +94,7 @@ export default function FileUpload() {
                 variant="outline"
                 rounded="2xl"
                 size="lg"
-                className="px-4 gap-2 text-[15px]"
+                className="gap-2 px-4 text-[15px]"
                 onClick={() => {
                   handleRemove();
                 }}
