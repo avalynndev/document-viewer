@@ -121,6 +121,7 @@ export default function FileUpload() {
           }))}
           config={{
             header: {
+              disableHeader: true,
               disableFileName: true,
               retainURLParams: true,
             },
