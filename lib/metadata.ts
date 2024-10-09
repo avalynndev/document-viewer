@@ -4,7 +4,7 @@ import { Metadata } from "next";
 export function constructMetadata({
   title = siteConfig.name,
   description = siteConfig.description,
-  icons = "/public/favicon.ico",
+  icons = "/favicon.ico",
   noIndex = false,
 }: {
   title?: string;
